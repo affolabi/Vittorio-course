@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f0ede8;
+    --card: #ffffff;
+    --ink: #111111;
+    --muted: #666;
+    --accent: #e63329;
+    --accent2: #111;
+    --green: #1a7a4a;
+    --radius: 20px;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+  }
+
+  .wrap {
+    width: 100%;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--ink);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    align-self: flex-start;
+  }
+
+  .hero-card {
+    background: var(--ink);
+    border-radius: var(--radius);
+    padding: 32px 28px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(230,51,41,0.35) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .course-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .course-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+
+  .course-title span {
+    color: var(--accent);
+  }
+
+  .course-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 20px;
+  }
+
+  .price-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .price-tag {
+    background: var(--accent);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    padding: 8px 18px;
+    border-radius: 12px;
+  }
+
+  .price-note {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.4;
+  }
+
+  .steps-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 24px 24px 20px;
+    border: 1.5px solid rgba(0,0,0,0.06);
+  }
+
+  .steps-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .step:last-child { margin-bottom: 0; }
+
+  .step-num {
+    width: 28px; height: 28px;
+    background: var(--ink);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .step-text {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .step-text strong { font-weight: 600; }
+
+  /* Payment card */
+  .pay-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    border: 1.5px solid rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+
+  .pay-card-header {
+    background: #f7f5f2;
+    padding: 14px 24px;
+    border-bottom: 1.5px solid rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .opay-dot {
+    width: 10px; height: 10px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .6; transform: scale(1.2); }
+  }
+
+  .pay-card-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .pay-card-body {
+    padding: 24px;
+  }
+
+  .account-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .account-bank {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    font-weight: 500;
+    letter-spacing: .04em;
+  }
+
+  .acct-box {
+    background: #f0ede8;
+    border-radius: 14px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    border: 1.5px solid rgba(0,0,0,0.07);
+  }
+
+  .acct-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: .06em;
+  }
+
+  .copy-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: .06em;
+    transition: background .2s, transform .1s;
+    white-space: nowrap;
+  }
+
+  .copy-btn:hover { background: #333; }
+  .copy-btn:active { transform: scale(.96); }
+  .copy-btn.copied { background: var(--green); }
+
+  .copy-icon { font-size: 14px; }
+
+  .amount-note {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .amount-note strong {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .wa-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background: #25D366;
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 16px;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: .04em;
+    text-decoration: none;
+    transition: background .2s, transform .1s;
+  }
+
+  .wa-btn:hover { background: #1ebe5a; }
+  .wa-btn:active { transform: scale(.97); }
+
+  .wa-icon {
+    width: 22px; height: 22px;
+    fill: #fff;
+    flex-shrink: 0;
+  }
+
+  .footer-note {
+    text-align: center;
+    font-size: 11.5px;
+    color: #999;
+    line-height: 1.6;
+  }
+
+  .footer-note strong { color: var(--ink); }
+
+  /* toast */
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(60px);
+    background: var(--ink);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 100px;
+    opacity: 0;
+    transition: transform .3s ease, opacity .3s ease;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 999;
+  }
+
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="badge">💳 Secure Payment</div>
+
+  <div class="hero-card">
+    <div class="course-label">3-Hour Crash Course</div>
+    <div class="course-title">AI For <span>UI/UX</span><br>Designers</div>
+    <div class="course-sub">By @0xvittorio · Limited Slots Available</div>
+    <div class="price-row">
+      <div class="price-tag">₦30,000</div>
+      <div class="price-note">One-time payment<br>Instant access on confirmation</div>
+    </div>
+  </div>
+
+  <div class="steps-card">
+    <div class="steps-title">How to Pay</div>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text">Copy the account number below and send <strong>₦30,000</strong> via OPay or bank transfer.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text">Click <strong>"I've Paid — Send Receipt"</strong> to notify the instructor on WhatsApp.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text">Get your course link within <strong>minutes</strong> of confirmation.</div>
+    </div>
+  </div>
+
+  <div class="pay-card">
+    <div class="pay-card-header">
+      <div class="opay-dot"></div>
+      <div class="pay-card-label">OPay Account Details</div>
+    </div>
+    <div class="pay-card-body">
+      <div class="account-name">Oladeji Afolabi</div>
+      <div class="account-bank">OPay · 9 PSB</div>
+
+      <div class="acct-box">
+        <div class="acct-number" id="acctNum">8079261885</div>
+        <button class="copy-btn" id="copyBtn" onclick="copyAcct()">
+          <span class="copy-icon">⎘</span>
+          <span id="copyLabel">COPY</span>
+        </button>
+      </div>
+
+      <div class="amount-note">Transfer exactly <strong>₦30,000</strong> to this account</div>
+
+      <a class="wa-btn" href="https://wa.me/2348079261885?text=Hi%20Vittorio!%20I%20just%20made%20payment%20of%20%E2%82%A630%2C000%20for%20the%20AI%20for%20UI%2FUX%20Designers%20Course.%20Please%20find%20my%20receipt%20attached.%20Thank%20you!" target="_blank">
+        <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        I've Paid — Send Receipt
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Questions? Chat with <strong>@0xvittorio</strong> on WhatsApp · Slots are limited
+  </div>
+
+</div>
+
+<div class="toast" id="toast">✓ Account number copied!</div>
+
+<script>
+  function copyAcct() {
+    const num = document.getElementById('acctNum').textContent;
+    navigator.clipboard.writeText(num).then(() => {
+      const btn = document.getElementById('copyBtn');
+      const label = document.getElementById('copyLabel');
+      btn.classList.add('copied');
+      label.textContent = 'COPIED!';
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        label.textContent = 'COPY';
+        toast.classList.remove('show');
+      }, 2500);
+    });
+  }
+</script>
+
+</body>
+</html>
